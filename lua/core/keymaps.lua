@@ -1,7 +1,10 @@
 -- Set leader key to space
-vim.g.mapleader = " "
+vim.g.mapjeader = " "
 
 local keymap = vim.keymap
+
+-- Remove highlight on Escape pressed
+keymap.set("n", "<Esc>", function() vim.cmd('noh') end)
 
 -- General keymaps
 keymap.set("n", "<leader>wq", ":wq<CR>") -- save and quit
