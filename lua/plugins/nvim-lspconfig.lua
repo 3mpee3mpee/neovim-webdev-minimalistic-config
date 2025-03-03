@@ -1,4 +1,3 @@
--- LSP Support
 return {
   -- LSP Configuration
   -- https://github.com/neovim/nvim-lspconfig
@@ -18,6 +17,9 @@ return {
     -- Additional lua configuration, makes nvim stuff amazing!
     -- https://github.com/folke/neodev.nvim
     { 'folke/neodev.nvim', opts = {} },
+
+    -- Prettier integration (optional, can use LSP or as formatter)
+    { 'jose-elias-alvarez/null-ls.nvim', opts = {} },  -- For integrating prettier and eslint
   },
   config = function ()
     require('mason').setup()
@@ -36,6 +38,7 @@ return {
         'tsserver', -- requires npm to be installed
         'gopls',
         'yamlls', -- requires npm to be installed
+        'eslint',  -- ESLint LSP
       }
     })
 
@@ -67,6 +70,28 @@ return {
       },
     }
 
+    -- ESLint configuration
+    lspconfig.eslint.setup {
+      on_attach = function(client, bufnr)
+        -- Auto format with eslint on save
+        if client.resolved_capabilities.document_formatting then
+          vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+        end
+      end
+    }
+
+    -- Null-ls for prettier integration
+    local null_ls = require('null-ls')
+    null_ls.setup({
+      sources = {
+        -- Prettier Formatter
+        null_ls.builtins.formatting.prettier,
+        -- ESLint
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.code_actions.eslint,
+      },
+    })
+
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -74,7 +99,6 @@ return {
       opts.border = opts.border or "rounded" -- Set border to rounded
       return open_floating_preview(contents, syntax, opts, ...)
     end
-
   end
 }
 
