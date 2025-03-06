@@ -35,6 +35,7 @@ return {
         'marksman',
         'quick_lint_js',
         'astro',
+        'clangd',
         'tsserver', -- requires npm to be installed
         'gopls',
         'yamlls', -- requires npm to be installed
@@ -84,6 +85,8 @@ return {
     local null_ls = require('null-ls')
     null_ls.setup({
       sources = {
+        -- Clang Formatter
+        null_ls.builtins.formatting.clang_format,
         -- Prettier Formatter
         null_ls.builtins.formatting.prettier,
         -- ESLint
