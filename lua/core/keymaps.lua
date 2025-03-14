@@ -79,6 +79,13 @@ keymap.set('n', "<leader>/", function()
   })
 end, { desc = "[/] Fuzzily search in current buffer]" })
 
+-- GrugFar Search Engine
+keymap.set('n', '<leader>s', function() require('grug-far').open({ prefills = { flags = "-i"} }) end) -- fuzzy find in current file buffer
+keymap.set('n', '<leader>sw', function() require('grug-far').open({ prefills = { search = vim.fn.expand("<cword>"), flags= "-i" } }) end) -- fuzzy find in current file buffer
+
+-- Undoo Tree
+keymap.set('n', '<leader>ut', ":UndotreeToggle<CR>") -- fuzzy find in current file buffer
+
 -- Git-blame
 keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
 
