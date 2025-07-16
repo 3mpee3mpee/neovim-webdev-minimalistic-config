@@ -76,3 +76,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 200, visual = true })
 	end,
 })
+
+-- Language Switch
+-- Function to set keyboard layout to English
+local function set_english_layout()
+  vim.fn.jobstart({"hyprctl", "switchxkblayout", "lucky65v2-lucky65v2-keyboard", "0" })
+end
+
+-- Autocommand to switch to English layout when leaving insert mode
+vim.api.nvim_create_autocmd("InsertLeave", {
+  callback = set_english_layout,
+})
+
+-- Optional: switch on VimEnter if not in insert mode
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.mode() ~= 'i' then
+      set_english_layout()
+    end
+  end,
+})
+

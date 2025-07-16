@@ -40,6 +40,7 @@ return {
         'gopls',
         'yamlls', -- requires npm to be installed
         'eslint',  -- ESLint LSP
+        'elixirls',
       }
     })
 

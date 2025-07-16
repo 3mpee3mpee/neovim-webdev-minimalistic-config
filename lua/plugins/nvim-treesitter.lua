@@ -29,6 +29,9 @@ return {
         "vue",
         "go",
         "astro",
+        "elixir",
+        "eex",
+        "heex"
     },
   },
   config = function (_, opts)
