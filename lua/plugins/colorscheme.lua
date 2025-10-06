@@ -95,7 +95,7 @@
 --   priority = 1000, -- Load the colorscheme before other non-lazy-loaded plugins
 --   opts = {
 --     -- Replace this with your scheme-specific settings or remove to use the defaults
---     -- transparent = true,
+--     transparent = true,
 --     background = {
 --       -- light = "lotus",
 --       dark = "wave", -- "wave, dragon"
@@ -109,19 +109,23 @@
 
 -- Tokyo Night Theme
 -- return {
---   -- https://github.com/folke/tokyonight.nvim
---   'folke/tokyonight.nvim', -- You can replace this with your favorite colorscheme
---   lazy = false, -- We want the colorscheme to load immediately when starting Neovim
---   priority = 1000, -- Load the colorscheme before other non-lazy-loaded plugins
---   opts = {
---     -- Replace this with your scheme-specific settings or remove to use the defaults
---     transparent = true,
---     style = "night", -- other variations "storm, night, moon, day"
---   },
---   config = function(_, opts)
---     require('tokyonight').setup(opts) -- Replace this with your favorite colorscheme
---     vim.cmd("colorscheme tokyonight") -- Replace this with your favorite colorscheme
---   end
+--     -- https://github.com/folke/tokyonight.nvim
+--     'folke/tokyonight.nvim', -- You can replace this with your favorite colorscheme
+--     lazy = false, -- We want the colorscheme to load immediately when starting Neovim
+--     priority = 1000, -- Load the colorscheme before other non-lazy-loaded plugins
+--     opts = {
+--         -- Replace this with your scheme-specific settings or remove to use the defaults
+--         transparent = true,
+--         style = "night", -- other variations "storm, night, moon, day"
+--         styles = {
+--             floats = "transparent",
+--             sidebars = "transparent",
+--         },
+--     },
+--     config = function(_, opts)
+--         require('tokyonight').setup(opts) -- Replace this with your favorite colorscheme
+--         vim.cmd("colorscheme tokyonight") -- Replace this with your favorite colorscheme
+--     end
 -- }
 --
 -- Moonfly Theme
@@ -140,7 +144,17 @@
 return {
     "olimorris/onedarkpro.nvim",
     priority = 1000, -- Ensure it loads first
+    opts = {
+        colors = {
+            purple = "#c279c8", -- A more readable orange instead of purple
+        },
+        styles = {
+            functions = "bold",
+            types = "NONE",
+        }
+    },
     config = function(_, opts)
+        require("onedarkpro").setup(opts)
         vim.cmd("colorscheme onedark_dark")
     end
 }
@@ -154,7 +168,7 @@ return {
 --   priority = 1000, -- Load the colorscheme before other non-lazy-loaded plugins
 --   opts = {
 --   --   -- Replace this with your scheme-specific settings or remove to use the defaults
---     -- transparent = true,
+--     transparent_background = true,
 --     flavour = "mocha", -- "latte, frappe, macchiato, mocha"
 --   },
 --   config = function(_, opts)

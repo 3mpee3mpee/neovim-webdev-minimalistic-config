@@ -25,8 +25,8 @@ keymap.set("n", "gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open a new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close a tab
-keymap.set("n", "<Tab>", ":tabn<CR>") -- next tab
-keymap.set("n", "<S-Tab>", ":tabp<CR>") -- previous tab
+-- keymap.set("n", "<Tab>", ":tabn<CR>") -- next tab
+-- keymap.set("n", "<S-Tab>", ":tabp<CR>") -- previous tab
 
 -- Diff keymaps
 keymap.set("n", "<leader>cc", ":diffput<CR>") -- put diff from current to other during diff
