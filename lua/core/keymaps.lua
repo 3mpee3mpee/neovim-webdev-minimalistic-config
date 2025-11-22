@@ -86,8 +86,10 @@ keymap.set('n', '<leader>sw', function() require('grug-far').open({ prefills = {
 -- Undoo Tree
 keymap.set('n', '<leader>ut', ":UndotreeToggle<CR>") -- fuzzy find in current file buffer
 
--- Git-blame
+-- Git
 keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
+keymap.set("n", "<leader>hn", function() require("gitsigns").next_hunk() end)
+keymap.set("n", "<leader>hh", function() require("gitsigns").preview_hunk() end)
 
 -- Harpoon
 keymap.set("n", "<leader>ha", require("harpoon.mark").add_file)
