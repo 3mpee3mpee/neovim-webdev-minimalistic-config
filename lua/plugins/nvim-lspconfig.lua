@@ -22,10 +22,7 @@ return {
         { 'jose-elias-alvarez/null-ls.nvim', opts = {} },  -- For integrating prettier and eslint
     },
     config = function ()
-        require('mason').setup()
-        require('mason-lspconfig').setup({
-            -- Install these LSPs automatically
-            ensure_installed = {
+        local ensure_installed = {
                 'bashls', -- requires npm to be installed
                 'cssls', -- requires npm to be installed
                 'html', -- requires npm to be installed
@@ -38,32 +35,38 @@ return {
                 'clangd',
                 'zls',
                 'pylsp',
-                'tsserver', -- requires npm to be installed
+                'ts_ls', -- requires npm to be installed
                 'gopls',
                 'yamlls', -- requires npm to be installed
                 'eslint',  -- ESLint LSP
                 'elixirls',
-            }
+        }
+        require('mason').setup()
+        require('mason-lspconfig').setup({
+            -- Install these LSPs automatically
+            ensure_installed = ensure_installed
         })
-
-        local lspconfig = require('lspconfig')
-        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-        local lsp_attach = function(client, bufnr)
-            -- Create your keybindings here...
-        end
 
         -- Call setup on each LSP server
-        require('mason-lspconfig').setup_handlers({
-            function(server_name)
-                lspconfig[server_name].setup({
-                    on_attach = lsp_attach,
-                    capabilities = lsp_capabilities,
-                })
-            end
-        })
+        for _, server_name in ipairs(ensure_installed) do
+            vim.lsp.enable(server_name)
+        end
+
+        -- Example Lua code to enable completion for a buffer and client
+        -- vim.api.nvim_create_autocmd('LspAttach', {
+        --     callback = function(args)
+        --         local client = vim.lsp.get_client_by_id(args.data.client_id)
+        --         -- Check if the client supports completion
+        --         if client.supports_method('textDocument/completion') and vim.lsp.completion then
+        --             -- Enable completion for the client and buffer,
+        --             -- with autotrigger enabled.
+        --             vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        --         end
+        --     end,
+        -- })
 
         -- Lua LSP settings
-        lspconfig.lua_ls.setup {
+        vim.lsp.config('lua-lsp', {
             settings = {
                 Lua = {
                     diagnostics = {
@@ -79,21 +82,11 @@ return {
                     }
                 },
             },
-        }
-
-        -- ESLint configuration
-        lspconfig.eslint.setup {
-            on_attach = function(client, bufnr)
-                -- Auto format with eslint on save
-                if client.resolved_capabilities.document_formatting then
-                    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-                end
-            end
-        }
+        })
 
         -- Null-ls for prettier integration
         local null_ls = require('null-ls')
-        null_ls.setup({
+        vim.lsp.config('null-ls', {
             sources = {
                 -- Clang Formatter
                 null_ls.builtins.formatting.clang_format,
