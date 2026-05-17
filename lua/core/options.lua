@@ -51,8 +51,8 @@ opt.mouse = ""
 
 -- Folding
 opt.foldlevel = 20
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Utilize Treesitter folds
+opt.foldmethod = "indent"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()" -- Utilize Treesitter folds
 
 -- Always keep 8 lines above/below cursor unless at start/end of file
 opt.scrolloff = 8

@@ -84,19 +84,19 @@ return {
             },
         })
 
-        -- Null-ls for prettier integration
-        local null_ls = require('null-ls')
-        vim.lsp.config('null-ls', {
-            sources = {
-                -- Clang Formatter
-                null_ls.builtins.formatting.clang_format,
-                -- Prettier Formatter
-                null_ls.builtins.formatting.prettier,
-                -- ESLint
-                null_ls.builtins.diagnostics.eslint,
-                null_ls.builtins.code_actions.eslint,
-            },
-        })
+        -- -- Null-ls for prettier integration
+        -- local null_ls = require('null-ls')
+        -- vim.lsp.config('null-ls', {
+        --     sources = {
+        --         -- Clang Formatter
+        --         null_ls.builtins.formatting.clang_format,
+        --         -- Prettier Formatter
+        --         null_ls.builtins.formatting.prettier,
+        --         -- ESLint
+        --         null_ls.builtins.diagnostics.eslint,
+        --         null_ls.builtins.code_actions.eslint,
+        --     },
+        -- })
 
         -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
         local open_floating_preview = vim.lsp.util.open_floating_preview
